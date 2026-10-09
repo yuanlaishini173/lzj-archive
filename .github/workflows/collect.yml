@@ -52,6 +52,7 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add data
           git diff --cached --quiet || git commit -m "data: monthly collect $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main
           git push
 
       - run: python build.py

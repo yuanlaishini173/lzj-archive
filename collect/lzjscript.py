@@ -63,7 +63,7 @@ def main():
     print("lzjscript: %d posts in wayback, %d to fetch" % (len(latest), len(todo)))
     with ThreadPoolExecutor(2) as ex:
         for i, (pid, rec) in enumerate(ex.map(lambda a: snapshot(*a), todo)):
-            if rec and rec["title"]:
+            if rec and rec["title"] and "注册会员" not in rec["title"]:
                 store[pid] = rec
             if i % 50 == 49:
                 save(STORE, store)

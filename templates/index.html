@@ -1,160 +1,265 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>劉仲敬檔案館</title>
-<meta name="description" content="劉仲敬公開內容索引：視頻、直播、文章、文稿、著作。每月自動更新。">
+<title>刘仲敬档案馆</title>
+<meta name="description" content="刘仲敬公开内容索引：视频、直播、文章、文稿、著作。每月自动更新。">
 <style>
-:root{--bg:#f7f4ee;--card:#fffdf8;--fg:#22201c;--muted:#7a7468;--line:#e2dccf;--accent:#8a2b1f;--chip:#efe9dc}
-@media (prefers-color-scheme:dark){:root{--bg:#1a1917;--card:#222120;--fg:#e8e4dc;--muted:#9a9488;--line:#34322e;--accent:#e08a74;--chip:#2c2a27}}
+:root{--bg:#f6f3ec;--panel:#fffdf8;--fg:#211f1b;--muted:#7b756a;--faint:#a9a294;--line:#e4ded1;--hover:#efe9dc;--accent:#8a2b1f;--accent-bg:#8a2b1f14;--chip:#ece6d8}
+@media (prefers-color-scheme:dark){:root{--bg:#171614;--panel:#1f1e1b;--fg:#e9e5dc;--muted:#a09a8d;--faint:#6f6a60;--line:#312f2b;--hover:#2a2825;--accent:#e2907b;--accent-bg:#e2907b1c;--chip:#2c2a26}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 system-ui,-apple-system,"PingFang TC","Noto Sans TC",sans-serif}
-.wrap{max-width:980px;margin:0 auto;padding:0 16px}
-header{padding:40px 0 20px;border-bottom:1px solid var(--line)}
-h1{font:600 34px/1.2 "Noto Serif TC","Songti TC",serif;margin:0 0 6px;letter-spacing:.04em}
-.sub{color:var(--muted);font-size:14px}
-.stats{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:14px}
-.stats b{font-size:20px;font-variant-numeric:tabular-nums;margin-right:4px}
-.controls{position:sticky;top:0;z-index:2;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--line)}
-.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
-.tab{border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:999px;padding:5px 13px;font-size:14px;cursor:pointer;white-space:nowrap}
-.tab.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.row{display:flex;gap:8px;flex-wrap:wrap}
-input,select{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
-input{flex:1 1 240px}
-select{flex:0 1 auto;max-width:100%}
-.count{color:var(--muted);font-size:13px;margin:12px 0 4px}
-ul{list-style:none;margin:0;padding:0}
-li{padding:12px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:92px 1fr;gap:12px}
-.d{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums;padding-top:2px}
-.t a{color:var(--fg);text-decoration:none;font-weight:500}
-.t a:hover{color:var(--accent);text-decoration:underline}
-.m{font-size:12px;color:var(--muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
-.k{background:var(--chip);border-radius:4px;padding:1px 6px}
-.snip{font-size:13px;color:var(--muted);margin-top:4px}
-mark{background:#f3d36b55;color:inherit}
-#more[hidden]{display:none}
-#more{display:block;margin:20px auto;padding:9px 22px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;font:inherit}
-footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 48px;color:var(--muted);font-size:13px}
-footer a{color:var(--accent)}
-footer ul li{display:block;padding:3px 0;border:0}
-@media (max-width:600px){li{grid-template-columns:1fr;gap:2px}h1{font-size:28px}}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,"PingFang SC","Noto Sans SC",sans-serif}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.top-in{max-width:1240px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:16px}
+.brand{font:600 20px/1 "Noto Serif SC","Songti SC",serif;letter-spacing:.06em;white-space:nowrap;text-decoration:none}
+.search{flex:1;position:relative;max-width:560px}
+.search input{width:100%;font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px 8px 32px;outline:none}
+.search input:focus{border-color:var(--accent)}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--faint)}
+.upd{margin-left:auto;color:var(--muted);font-size:12px;white-space:nowrap}
+#filterBtn{display:none;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:7px 12px}
+
+/* layout */
+.layout{max-width:1240px;margin:0 auto;padding:0 16px;display:grid;grid-template-columns:232px minmax(0,1fr);gap:28px}
+aside{position:sticky;top:53px;align-self:start;max-height:calc(100vh - 53px);overflow-y:auto;padding:18px 4px 24px 0;scrollbar-width:thin}
+.sec{margin-bottom:20px}
+.sec h3{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--faint);margin:0 0 6px 8px;text-transform:uppercase}
+.nav button{display:flex;width:100%;justify-content:space-between;align-items:center;gap:8px;border:0;background:none;padding:5px 8px;border-radius:6px;text-align:left}
+.nav button:hover{background:var(--hover)}
+.nav button.on{background:var(--accent-bg);color:var(--accent);font-weight:600}
+.nav button span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav .n{color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums;font-weight:400}
+.years{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.years button{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:4px 0;font-size:12px;font-variant-numeric:tabular-nums}
+.years button:hover{border-color:var(--muted)}
+.years button.on{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.years button:disabled{opacity:.35;cursor:default}
+.more-link{border:0;background:none;color:var(--muted);font-size:12px;padding:4px 8px}
+.res{font-size:12px;color:var(--muted);line-height:1.8;padding:0 8px}
+.res a{color:var(--accent);text-decoration:none}
+
+/* main */
+main{padding:16px 0 48px;min-width:0}
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;min-height:30px}
+.bar .count{font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:4px;background:var(--chip);border:0;border-radius:999px;padding:3px 6px 3px 10px;font-size:12px}
+.chip b{font-weight:400;color:var(--muted)}
+.chip:hover{background:var(--hover)}
+.bar select{margin-left:auto;font:inherit;font-size:13px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:4px 6px}
+
+.group h2{position:sticky;top:53px;z-index:1;background:var(--bg);margin:0;padding:10px 0 6px;font-size:13px;font-weight:600;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:baseline}
+.group h2 small{color:var(--faint);font-weight:400}
+.rows{list-style:none;margin:0 0 8px;padding:0}
+.rows li{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;padding:0 8px;height:36px;border-bottom:1px solid var(--line);border-radius:4px}
+.rows li:hover{background:var(--hover)}
+.rows .d{color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums}
+.rows .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none}
+.rows .t:hover{color:var(--accent)}
+.rows .r{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:12px;white-space:nowrap}
+.tag{background:var(--chip);border-radius:4px;padding:1px 6px;font-size:11px;color:var(--muted)}
+.tag.k-article{background:var(--accent-bg);color:var(--accent)}
+.snip{grid-column:2/4;font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:-6px}
+.rows li.has-snip{height:auto;padding:7px 8px}
+mark{background:#f0c94a55;color:inherit;border-radius:2px}
+
+.books{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:6px}
+.book{display:block;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 14px 12px;text-decoration:none;border-top:3px solid var(--accent)}
+.book:hover{border-color:var(--muted);border-top-color:var(--accent)}
+.book .bt{font:600 15px/1.45 "Noto Serif SC","Songti SC",serif;margin-bottom:8px}
+.book .bd{font-size:12px;color:var(--muted)}
+.book .by{font-size:12px;color:var(--faint);margin-top:6px;font-variant-numeric:tabular-nums}
+
+.pager{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;margin:22px 0 4px}
+.pager button{min-width:34px;height:32px;border:1px solid var(--line);background:var(--panel);border-radius:6px;font-variant-numeric:tabular-nums}
+.pager button.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.pager button:disabled{opacity:.35;cursor:default}
+.pager span{padding:6px 4px;color:var(--faint)}
+.empty{padding:60px 0;text-align:center;color:var(--muted)}
+.note{font-size:12px;color:var(--faint);margin-top:28px;border-top:1px solid var(--line);padding-top:12px}
+
+@media (max-width:820px){
+  .layout{grid-template-columns:1fr;gap:0}
+  #filterBtn{display:block}
+  .upd{display:none}
+  aside{position:fixed;inset:0 25% 0 0;max-height:none;z-index:20;background:var(--panel);padding:16px;transform:translateX(-105%);transition:transform .2s;box-shadow:0 0 40px #0004}
+  aside.open{transform:none}
+  .scrim{position:fixed;inset:0;z-index:15;background:#0005;display:none}
+  .scrim.open{display:block}
+  .rows li{grid-template-columns:44px minmax(0,1fr);gap:8px}
+  .rows .r{display:none}
+  .brand{font-size:17px}
+}
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <h1>劉仲敬檔案館</h1>
-  <div class="sub">劉仲敬公開內容的索引：視頻、直播、文章、文稿、著作。每月自動採集更新。<span id="upd"></span></div>
-  <div class="stats" id="stats"></div>
-</div></header>
-
-<div class="controls"><div class="wrap">
-  <div class="tabs" id="tabs"></div>
-  <div class="row">
-    <input id="q" type="search" placeholder="搜索標題、標籤、文章全文（簡繁皆可）" autocomplete="off">
-    <select id="year"><option value="">全部年份</option></select>
-    <select id="tag"><option value="">全部分類</option></select>
-    <select id="sort"><option value="desc">最新在前</option><option value="asc">最早在前</option></select>
-  </div>
+<div class="top"><div class="top-in">
+  <a class="brand" href="./">刘仲敬档案馆</a>
+  <button id="filterBtn" aria-label="筛选">筛选</button>
+  <label class="search">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="搜索标题、系列、文章全文（简繁皆可）" autocomplete="off">
+  </label>
+  <span class="upd" id="upd"></span>
 </div></div>
 
-<main class="wrap">
-  <div class="count" id="count"></div>
-  <ul id="list"></ul>
-  <button id="more" hidden>載入更多</button>
-</main>
+<div class="scrim" id="scrim"></div>
+<div class="layout">
+  <aside id="side">
+    <div class="sec"><h3>类别</h3><div class="nav" id="cats"></div></div>
+    <div class="sec" id="seriesSec"><h3>系列</h3><div class="nav" id="series"></div></div>
+    <div class="sec"><h3>年份</h3><div class="years" id="years"></div></div>
+    <div class="sec"><h3>其他资源</h3><div class="res">
+      <a href="https://x.com/liuzhongjing" target="_blank" rel="noopener">X / Twitter</a> ·
+      <a href="https://www.youtube.com/channel/UC0KwJ-ig7udwmMgGjZyR41A" target="_blank" rel="noopener">YouTube</a> ·
+      <a href="https://medium.com/@LiuZhongjing" target="_blank" rel="noopener">Medium</a><br>
+      <a href="https://zh.wikipedia.org/wiki/%E5%8A%89%E4%BB%B2%E6%95%AC" target="_blank" rel="noopener">维基百科</a> ·
+      <a href="https://zh.wikiquote.org/wiki/%E5%88%98%E4%BB%B2%E6%95%AC" target="_blank" rel="noopener">维基语录</a> ·
+      <a href="https://github.com/yuanlaishini173/lzj-archive" target="_blank" rel="noopener">源码</a>
+    </div></div>
+  </aside>
 
-<footer><div class="wrap">
-  <p><b>收錄範圍</b>：公開免費的文章存全文；書籍、付費文稿只收標題、日期與原始連結，不轉載正文。版權歸原作者所有。</p>
-  <p><b>其他相關資源</b>（未自動採集）：</p>
-  <ul>
-    <li><a href="https://x.com/liuzhongjing" rel="noopener">X / Twitter @liuzhongjing</a></li>
-    <li><a href="https://www.youtube.com/channel/UC0KwJ-ig7udwmMgGjZyR41A" rel="noopener">YouTube 官方頻道</a></li>
-    <li><a href="https://medium.com/@LiuZhongjing" rel="noopener">Medium</a></li>
-    <li><a href="https://zh.wikipedia.org/wiki/%E5%8A%89%E4%BB%B2%E6%95%AC" rel="noopener">維基百科</a> · <a href="https://zh.wikiquote.org/wiki/%E5%88%98%E4%BB%B2%E6%95%AC" rel="noopener">維基語錄</a></li>
-    <li><a href="https://www.youtube.com/channel/UCo-QVq3aAWNVTEGkmGvV_-w" rel="noopener">刘仲敬 全集 视频 分类 收集 整理（粉絲頻道）</a></li>
-  </ul>
-  <p>標記「≈」的日期為近似值，會在後續採集中逐步校正為精確日期。</p>
-</div></footer>
+  <main>
+    <div class="bar" id="bar"></div>
+    <div id="out"></div>
+    <div class="pager" id="pager"></div>
+    <p class="note">公开免费的文章收录全文；书籍与付费文稿仅收标题、日期与原始链接，版权归原作者所有。「≈」表示日期为近似值，后续采集会逐步校正。每月 1 日自动更新。</p>
+  </main>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/t2cn.js"></script>
 <script>
-const SRC = {
-  video:["視頻","video"], live:["直播","live"], article:["文章（全文）","article"],
-  script:["文稿站索引","script"], book:["著作","book"], translation:["譯著","translation"]
-};
-const ORDER = ["", "video", "live", "article", "script", "book", "translation"];
-const PAGE = 100;
-let ALL = [], view = [], shown = 0, tab = "";
+const CATS = {video:"视频", live:"直播", article:"文章（全文）", script:"文稿站索引", book:"著作", translation:"译著"};
+const PER = 60, SERIES_SHOW = 10;
+const st = {cat:"", series:"", year:"", q:"", sort:"desc", page:1, allSeries:false};
+let ALL = [];
 const $ = id => document.getElementById(id);
 let norm = s => (s || "").toLowerCase();
 try { const cv = OpenCC.Converter({from:"tw", to:"cn"}); norm = s => cv((s || "").toLowerCase()); } catch (e) {}
-
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const dur = s => { if (!s) return ""; const h = Math.floor(s/3600), m = Math.floor(s%3600/60);
-  return h ? `${h}小時${m}分` : `${m}分`; };
+const dur = s => { if (!s) return ""; const h = Math.floor(s/3600), m = Math.round(s%3600/60); return h ? `${h}:${String(m).padStart(2,"0")}` : `${m}分`; };
+const count = (arr, f) => arr.reduce((o, i) => { const k = f(i); if (k) o[k] = (o[k]||0) + 1; return o; }, {});
 
 fetch("data.json").then(r => r.json()).then(d => {
-  ALL = d.items.map(i => ({...i, _n: norm(i.t + " " + (i.g||[]).join(" ") + " " + (i.n||"")), _x: i.x ? norm(i.x) : ""}));
-  $("upd").textContent = " 最近更新：" + d.updated;
-  const c = {}; ALL.forEach(i => c[i.s] = (c[i.s]||0) + 1);
-  $("stats").innerHTML = ORDER.slice(1).filter(k => c[k]).map(k => `<span><b>${c[k]}</b>${SRC[k][0]}</span>`).join("");
-  $("tabs").innerHTML = ORDER.filter(k => !k || c[k]).map(k =>
-    `<button class="tab${k===tab?" on":""}" data-k="${k}">${k ? SRC[k][0] : "全部"} <small>${k ? c[k] : ALL.length}</small></button>`).join("");
-  $("tabs").onclick = e => { const b = e.target.closest(".tab"); if (!b) return; tab = b.dataset.k;
-    document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x === b)); $("tag").value = ""; options(); run(); };
-  options(); run();
+  ALL = d.items.map(i => ({...i, y: i.d.slice(0,4), _n: norm([i.t, i.r, (i.g||[]).join(" "), i.n].join(" ")), _x: i.x ? norm(i.x) : ""}));
+  $("upd").textContent = "更新于 " + d.updated;
+  readHash(); render();
 });
 
-function options() {
-  const pool = ALL.filter(i => !tab || i.s === tab);
-  const years = [...new Set(pool.map(i => i.d.slice(0,4)).filter(Boolean))].sort().reverse();
-  const tags = {}; pool.forEach(i => (i.g||[]).forEach(g => tags[g] = (tags[g]||0) + 1));
-  const y = $("year").value;
-  $("year").innerHTML = `<option value="">全部年份</option>` + years.map(v => `<option${v===y?" selected":""}>${v}</option>`).join("");
-  $("tag").innerHTML = `<option value="">全部分類</option>` + Object.entries(tags).sort((a,b) => b[1]-a[1])
-    .map(([g,n]) => `<option value="${esc(g)}">${esc(g)}（${n}）</option>`).join("");
-  $("tag").hidden = !Object.keys(tags).length;
+function readHash() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  for (const k of ["cat","series","year","q","sort"]) if (p.get(k)) st[k] = p.get(k);
+  st.page = +p.get("page") || 1;
+  $("q").value = st.q;
 }
+function writeHash() {
+  const p = new URLSearchParams();
+  for (const k of ["cat","series","year","q"]) if (st[k]) p.set(k, st[k]);
+  if (st.sort !== "desc") p.set("sort", st.sort);
+  if (st.page > 1) p.set("page", st.page);
+  history.replaceState(null, "", p.toString() ? "#" + p : location.pathname);
+}
+function set(patch) { Object.assign(st, patch); if (!("page" in patch)) st.page = 1; render(); closeSide(); }
 
-function run() {
-  const q = norm($("q").value.trim()), terms = q.split(/\s+/).filter(Boolean);
-  const y = $("year").value, g = $("tag").value, asc = $("sort").value === "asc";
-  view = ALL.filter(i => (!tab || i.s === tab) && (!y || i.d.startsWith(y)) && (!g || (i.g||[]).includes(g))
+function filtered(skip) {
+  const terms = norm(st.q.trim()).split(/\s+/).filter(Boolean);
+  return ALL.filter(i => (skip === "cat" || !st.cat || i.s === st.cat)
+    && (skip === "series" || !st.series || i.r === st.series)
+    && (skip === "year" || !st.year || i.y === st.year)
     && terms.every(t => i._n.includes(t) || i._x.includes(t)));
-  if (asc) view = view.slice().reverse();
-  shown = 0; $("list").innerHTML = ""; $("count").textContent = `共 ${view.length} 條`;
-  more();
 }
 
-function snippet(i, terms) {
-  if (!i._x || !terms.length || terms.every(t => i._n.includes(t))) return "";
-  const p = i._x.indexOf(terms[0]); if (p < 0) return "";
-  const s = i.x.slice(Math.max(0, p - 40), p + 80);
-  return `<div class="snip">…${esc(s)}…</div>`;
+function render() {
+  writeHash();
+  // categories
+  const cc = count(filtered("cat"), i => i.s), tot = Object.values(cc).reduce((a,b) => a+b, 0);
+  $("cats").innerHTML = [["", "全部", tot], ...Object.keys(CATS).filter(k => cc[k] || st.cat === k).map(k => [k, CATS[k], cc[k]||0])]
+    .map(([k, l, n]) => `<button class="${st.cat===k?"on":""}" data-cat="${k}"><span>${l}</span><span class="n">${n}</span></button>`).join("");
+  // series
+  const sc = Object.entries(count(filtered("series"), i => i.r)).sort((a,b) => b[1]-a[1]);
+  $("seriesSec").hidden = !sc.length;
+  const shown = st.allSeries ? sc : sc.slice(0, SERIES_SHOW);
+  if (st.series && !shown.some(([k]) => k === st.series)) shown.push([st.series, 0]);
+  $("series").innerHTML = `<button class="${!st.series?"on":""}" data-series=""><span>全部系列</span></button>` +
+    shown.map(([k, n]) => `<button class="${st.series===k?"on":""}" data-series="${esc(k)}"><span>${esc(k)}</span><span class="n">${n}</span></button>`).join("") +
+    (sc.length > SERIES_SHOW ? `<button class="more-link" data-more>${st.allSeries ? "收起" : `展开全部 ${sc.length} 个`}</button>` : "");
+  // years
+  const yc = count(filtered("year"), i => i.y);
+  const ys = Object.keys(count(ALL, i => i.y)).sort().reverse();
+  $("years").innerHTML = ys.map(y => `<button class="${st.year===y?"on":""}" data-year="${y}" ${yc[y]?"":"disabled"} title="${yc[y]||0} 条">${y}</button>`).join("");
+
+  // results
+  let list = filtered();
+  if (st.sort === "asc") list = list.slice().reverse();
+  const chips = [["cat", CATS[st.cat]], ["series", st.series], ["year", st.year], ["q", st.q && `“${st.q}”`]]
+    .filter(([, v]) => v).map(([k, v]) => `<button class="chip" data-clear="${k}">${esc(v)} <b>×</b></button>`).join("");
+  $("bar").innerHTML = `<span class="count">${list.length} 条</span>${chips}
+    <select id="sort"><option value="desc">最新在前</option><option value="asc"${st.sort==="asc"?" selected":""}>最早在前</option></select>`;
+  $("sort").onchange = e => set({sort: e.target.value});
+
+  const pages = Math.max(1, Math.ceil(list.length / PER));
+  st.page = Math.min(st.page, pages);
+  const slice = list.slice((st.page-1)*PER, st.page*PER);
+  const terms = norm(st.q.trim()).split(/\s+/).filter(Boolean);
+
+  if (!slice.length) $("out").innerHTML = `<div class="empty">没有符合条件的内容</div>`;
+  else if (slice.every(i => i.s === "book" || i.s === "translation")) {
+    $("out").innerHTML = `<div class="books">${slice.map(i => `<a class="book" href="${esc(i.u)}" target="_blank" rel="noopener">
+      <div class="bt">${esc(i.t)}</div><div class="bd">${esc(i.n||"")}</div><div class="by">${CATS[i.s]} · ${i.y||"—"}</div></a>`).join("")}</div>`;
+  } else {
+    const groups = [];
+    for (const i of slice) { const g = groups[groups.length-1]; if (g && g.y === i.y) g.items.push(i); else groups.push({y: i.y, items: [i]}); }
+    const yTotal = count(list, i => i.y);
+    $("out").innerHTML = groups.map(g => `<section class="group"><h2>${g.y || "日期不详"} <small>${yTotal[g.y]||g.items.length} 条</small></h2>
+      <ul class="rows">${g.items.map(i => row(i, terms)).join("")}</ul></section>`).join("");
+  }
+
+  // pager
+  if (pages <= 1) { $("pager").innerHTML = ""; return; }
+  const nums = [...new Set([1, st.page-2, st.page-1, st.page, st.page+1, st.page+2, pages])].filter(n => n >= 1 && n <= pages).sort((a,b) => a-b);
+  let html = `<button data-page="${st.page-1}" ${st.page===1?"disabled":""}>‹</button>`, prev = 0;
+  for (const n of nums) { if (n - prev > 1) html += `<span>…</span>`; html += `<button data-page="${n}" class="${n===st.page?"on":""}">${n}</button>`; prev = n; }
+  $("pager").innerHTML = html + `<button data-page="${st.page+1}" ${st.page===pages?"disabled":""}>›</button>`;
 }
 
-function more() {
-  const terms = norm($("q").value.trim()).split(/\s+/).filter(Boolean);
-  const html = view.slice(shown, shown + PAGE).map(i => {
-    const ext = i.s !== "article";
-    const meta = [`<span class="k">${SRC[i.s][0]}</span>`];
-    if (i.dur) meta.push(dur(i.dur));
-    if (i.v) meta.push(i.v.toLocaleString() + " 次觀看");
-    if (i.n) meta.push(esc(i.n));
-    (i.g||[]).slice(0,3).forEach(t => meta.push(`<span>#${esc(t)}</span>`));
-    return `<li><div class="d">${i.d ? (i.a ? "≈" + i.d.slice(0,7) : i.d) : "—"}</div>
-      <div><div class="t"><a href="${esc(i.u)}"${ext ? ' target="_blank" rel="noopener"' : ""}>${esc(i.t)}</a></div>
-      <div class="m">${meta.join("")}</div>${snippet(i, terms)}</div></li>`;
-  }).join("");
-  $("list").insertAdjacentHTML("beforeend", html);
-  shown += PAGE; $("more").hidden = shown >= view.length;
+function row(i, terms) {
+  const ext = i.s !== "article";
+  const date = i.d ? (i.a ? "≈" + i.d.slice(5,7) + "月" : i.d.slice(5)) : "";
+  const right = [];
+  const m = i.t.match(/^【([^】]{1,12})】\s*/), title = m ? i.t.slice(m[0].length) : i.t;
+  if (m) right.push(`<span class="tag">${esc(m[1].replace("免费版", "") || "免费版")}</span>`);
+  if (!st.cat) right.push(`<span class="tag k-${i.s}">${CATS[i.s]}</span>`);
+  if (i.r && !st.series) right.push(`<span class="tag">${esc(i.r)}</span>`);
+  if (i.dur) right.push(`<span>${dur(i.dur)}</span>`);
+  let snip = "";
+  if (i._x && terms.length && !terms.every(t => i._n.includes(t))) {
+    const p = i._x.indexOf(terms[0]);
+    if (p >= 0) snip = `<div class="snip">…${esc(i.x.slice(Math.max(0, p-30), p)) }<mark>${esc(i.x.slice(p, p+terms[0].length))}</mark>${esc(i.x.slice(p+terms[0].length, p+80))}…</div>`;
+  }
+  return `<li class="${snip?"has-snip":""}"><span class="d">${date}</span>
+    <a class="t" href="${esc(i.u)}"${ext?' target="_blank" rel="noopener"':""} title="${esc(i.t)}">${esc(title)}</a>
+    <span class="r">${right.join("")}</span>${snip}</li>`;
 }
 
-let timer; $("q").oninput = () => { clearTimeout(timer); timer = setTimeout(run, 150); };
-["year","tag","sort"].forEach(id => $(id).onchange = run);
-$("more").onclick = more;
+document.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if ("cat" in b.dataset) set({cat: b.dataset.cat, series: ""});
+  else if ("series" in b.dataset) set({series: b.dataset.series});
+  else if ("year" in b.dataset) set({year: st.year === b.dataset.year ? "" : b.dataset.year});
+  else if ("more" in b.dataset) { st.allSeries = !st.allSeries; render(); }
+  else if ("clear" in b.dataset) { if (b.dataset.clear === "q") $("q").value = ""; set({[b.dataset.clear]: ""}); }
+  else if ("page" in b.dataset) { set({page: +b.dataset.page}); window.scrollTo({top: 0}); }
+});
+let timer; $("q").oninput = () => { clearTimeout(timer); timer = setTimeout(() => set({q: $("q").value}), 150); };
+function closeSide() { $("side").classList.remove("open"); $("scrim").classList.remove("open"); }
+$("filterBtn").onclick = () => { $("side").classList.add("open"); $("scrim").classList.add("open"); };
+$("scrim").onclick = closeSide;
+window.addEventListener("hashchange", () => { for (const k of ["cat","series","year","q"]) st[k] = ""; st.sort = "desc"; readHash(); render(); });
 </script>
 </body>
 </html>

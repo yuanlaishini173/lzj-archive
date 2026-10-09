@@ -20,6 +20,22 @@ def load(name):
         return json.load(f)
 
 
+# Series detection: first matching keyword wins (order matters).
+SERIES = [("访谈精选", "访谈精选"), ("快问快答", "快问快答"), ("陈医师", "陈医师访谈"),
+          ("刘仲敬访谈", "刘仲敬访谈"), ("劉仲敬訪談", "刘仲敬访谈"), ("世界宪制史", "世界宪制史"),
+          ("通俗阿姨学", "通俗阿姨学"), ("问答", "问答"), ("問答", "问答"), ("讲座", "讲座"),
+          ("講座", "讲座"), ("言论", "言论合集"), ("宪制史", "民族宪制史"), ("简史", "民族简史"),
+          ("古代史", "诸夏古代史"), ("论文集", "论文与书评"), ("书评", "论文与书评")]
+JUNK = re.compile(r"注册会员|^Contact$|^Connecting|^\d+$|^刘仲敬文稿站$|^Page not found")
+
+
+def series(title, tags):
+    for key, name in SERIES:
+        if key in title:
+            return name
+    return tags[0] if tags else "其他"
+
+
 def plain(h):
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h))).strip()
 
@@ -45,6 +61,8 @@ def main():
                       "src": v["url"], "g": v.get("tags", []), "x": plain(body)})
 
     for v in load("lzjscript.json").values():
+        if JUNK.search(v["title"]):
+            continue
         items.append({"s": "script", "t": v["title"], "d": v.get("date", ""), "u": v["url"],
                       "g": v.get("categories", [])})
 
@@ -52,6 +70,9 @@ def main():
         items.append({"s": v["kind"], "t": v["title"], "d": v.get("date", ""), "u": v["url"],
                       "n": v.get("detail", ""), "g": []})
 
+    for i in items:
+        if i["s"] in ("video", "live", "script"):
+            i["r"] = series(i["t"], [g for g in i.get("g", []) if not re.fullmatch(r"\d{4}S\d|Uncategorized|未分类", g)])
     items.sort(key=lambda i: i["d"], reverse=True)
     for i in items:  # drop empty fields to keep data.json small
         for k in [k for k, val in i.items() if val in (None, "", [], 0) and k not in ("t", "d", "u", "s")]:
