@@ -128,7 +128,7 @@ mark{background:#f0c94a55;color:inherit;border-radius:2px}
     <div class="bar" id="bar"></div>
     <div id="out"></div>
     <div class="pager" id="pager"></div>
-    <p class="note">公开免费的文章收录全文；书籍与付费文稿仅收标题、日期与原始链接，版权归原作者所有。「≈」表示日期为近似值，后续采集会逐步校正。每月 1 日自动更新。</p>
+    <p class="note">公开免费的文章收录全文；书籍与付费文稿仅收标题、日期与原始链接，版权归原作者所有。「≈月-日」为按访谈期数推算的日期（误差约一周），「≈月」为粗略日期。每月 1 日自动更新。</p>
   </main>
 </div>
 
@@ -229,7 +229,7 @@ function render() {
 
 function row(i, terms) {
   const ext = i.s !== "article";
-  const date = i.d ? (i.a ? "≈" + i.d.slice(5,7) + "月" : i.d.slice(5)) : "";
+  const date = i.d ? (i.a === 1 ? "≈" + i.d.slice(5,7) + "月" : (i.a ? "≈" : "") + i.d.slice(5)) : "";
   const right = [];
   const m = i.t.match(/^【([^】]{1,12})】\s*/), title = m ? i.t.slice(m[0].length) : i.t;
   if (m) right.push(`<span class="tag">${esc(m[1].replace("免费版", "") || "免费版")}</span>`);

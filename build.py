@@ -44,7 +44,7 @@ def main():
     items = []
     for v in load("youtube.json").values():
         items.append({"s": v.get("kind", "video"), "t": v.get("title", ""), "d": v.get("date", ""),
-                      "a": 1 if v.get("date_approx") else 0, "u": v["url"],
+                      "a": {True: 1, "episode": 2}.get(v.get("date_approx"), 0), "u": v["url"],
                       "g": v.get("playlists", []), "dur": v.get("duration"), "v": v.get("views")})
 
     os.makedirs(os.path.join(SITE, "a"), exist_ok=True)
