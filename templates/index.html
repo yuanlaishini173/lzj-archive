@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>劉仲敬檔案館</title>
+<meta name="description" content="劉仲敬公開內容索引：視頻、直播、文章、文稿、著作。每月自動更新。">
+<style>
+:root{--bg:#f7f4ee;--card:#fffdf8;--fg:#22201c;--muted:#7a7468;--line:#e2dccf;--accent:#8a2b1f;--chip:#efe9dc}
+@media (prefers-color-scheme:dark){:root{--bg:#1a1917;--card:#222120;--fg:#e8e4dc;--muted:#9a9488;--line:#34322e;--accent:#e08a74;--chip:#2c2a27}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 system-ui,-apple-system,"PingFang TC","Noto Sans TC",sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+header{padding:40px 0 20px;border-bottom:1px solid var(--line)}
+h1{font:600 34px/1.2 "Noto Serif TC","Songti TC",serif;margin:0 0 6px;letter-spacing:.04em}
+.sub{color:var(--muted);font-size:14px}
+.stats{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:14px}
+.stats b{font-size:20px;font-variant-numeric:tabular-nums;margin-right:4px}
+.controls{position:sticky;top:0;z-index:2;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+.tab{border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:999px;padding:5px 13px;font-size:14px;cursor:pointer;white-space:nowrap}
+.tab.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+input,select{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
+input{flex:1 1 240px}
+select{flex:0 1 auto;max-width:100%}
+.count{color:var(--muted);font-size:13px;margin:12px 0 4px}
+ul{list-style:none;margin:0;padding:0}
+li{padding:12px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:92px 1fr;gap:12px}
+.d{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums;padding-top:2px}
+.t a{color:var(--fg);text-decoration:none;font-weight:500}
+.t a:hover{color:var(--accent);text-decoration:underline}
+.m{font-size:12px;color:var(--muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.k{background:var(--chip);border-radius:4px;padding:1px 6px}
+.snip{font-size:13px;color:var(--muted);margin-top:4px}
+mark{background:#f3d36b55;color:inherit}
+#more[hidden]{display:none}
+#more{display:block;margin:20px auto;padding:9px 22px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;font:inherit}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 48px;color:var(--muted);font-size:13px}
+footer a{color:var(--accent)}
+footer ul li{display:block;padding:3px 0;border:0}
+@media (max-width:600px){li{grid-template-columns:1fr;gap:2px}h1{font-size:28px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>劉仲敬檔案館</h1>
+  <div class="sub">劉仲敬公開內容的索引：視頻、直播、文章、文稿、著作。每月自動採集更新。<span id="upd"></span></div>
+  <div class="stats" id="stats"></div>
+</div></header>
+
+<div class="controls"><div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div class="row">
+    <input id="q" type="search" placeholder="搜索標題、標籤、文章全文（簡繁皆可）" autocomplete="off">
+    <select id="year"><option value="">全部年份</option></select>
+    <select id="tag"><option value="">全部分類</option></select>
+    <select id="sort"><option value="desc">最新在前</option><option value="asc">最早在前</option></select>
+  </div>
+</div></div>
+
+<main class="wrap">
+  <div class="count" id="count"></div>
+  <ul id="list"></ul>
+  <button id="more" hidden>載入更多</button>
+</main>
+
+<footer><div class="wrap">
+  <p><b>收錄範圍</b>：公開免費的文章存全文；書籍、付費文稿只收標題、日期與原始連結，不轉載正文。版權歸原作者所有。</p>
+  <p><b>其他相關資源</b>（未自動採集）：</p>
+  <ul>
+    <li><a href="https://x.com/liuzhongjing" rel="noopener">X / Twitter @liuzhongjing</a></li>
+    <li><a href="https://www.youtube.com/channel/UC0KwJ-ig7udwmMgGjZyR41A" rel="noopener">YouTube 官方頻道</a></li>
+    <li><a href="https://medium.com/@LiuZhongjing" rel="noopener">Medium</a></li>
+    <li><a href="https://zh.wikipedia.org/wiki/%E5%8A%89%E4%BB%B2%E6%95%AC" rel="noopener">維基百科</a> · <a href="https://zh.wikiquote.org/wiki/%E5%88%98%E4%BB%B2%E6%95%AC" rel="noopener">維基語錄</a></li>
+    <li><a href="https://www.youtube.com/channel/UCo-QVq3aAWNVTEGkmGvV_-w" rel="noopener">刘仲敬 全集 视频 分类 收集 整理（粉絲頻道）</a></li>
+  </ul>
+  <p>標記「≈」的日期為近似值，會在後續採集中逐步校正為精確日期。</p>
+</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/t2cn.js"></script>
+<script>
+const SRC = {
+  video:["視頻","video"], live:["直播","live"], article:["文章（全文）","article"],
+  script:["文稿站索引","script"], book:["著作","book"], translation:["譯著","translation"]
+};
+const ORDER = ["", "video", "live", "article", "script", "book", "translation"];
+const PAGE = 100;
+let ALL = [], view = [], shown = 0, tab = "";
+const $ = id => document.getElementById(id);
+let norm = s => (s || "").toLowerCase();
+try { const cv = OpenCC.Converter({from:"tw", to:"cn"}); norm = s => cv((s || "").toLowerCase()); } catch (e) {}
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dur = s => { if (!s) return ""; const h = Math.floor(s/3600), m = Math.floor(s%3600/60);
+  return h ? `${h}小時${m}分` : `${m}分`; };
+
+fetch("data.json").then(r => r.json()).then(d => {
+  ALL = d.items.map(i => ({...i, _n: norm(i.t + " " + (i.g||[]).join(" ") + " " + (i.n||"")), _x: i.x ? norm(i.x) : ""}));
+  $("upd").textContent = " 最近更新：" + d.updated;
+  const c = {}; ALL.forEach(i => c[i.s] = (c[i.s]||0) + 1);
+  $("stats").innerHTML = ORDER.slice(1).filter(k => c[k]).map(k => `<span><b>${c[k]}</b>${SRC[k][0]}</span>`).join("");
+  $("tabs").innerHTML = ORDER.filter(k => !k || c[k]).map(k =>
+    `<button class="tab${k===tab?" on":""}" data-k="${k}">${k ? SRC[k][0] : "全部"} <small>${k ? c[k] : ALL.length}</small></button>`).join("");
+  $("tabs").onclick = e => { const b = e.target.closest(".tab"); if (!b) return; tab = b.dataset.k;
+    document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x === b)); $("tag").value = ""; options(); run(); };
+  options(); run();
+});
+
+function options() {
+  const pool = ALL.filter(i => !tab || i.s === tab);
+  const years = [...new Set(pool.map(i => i.d.slice(0,4)).filter(Boolean))].sort().reverse();
+  const tags = {}; pool.forEach(i => (i.g||[]).forEach(g => tags[g] = (tags[g]||0) + 1));
+  const y = $("year").value;
+  $("year").innerHTML = `<option value="">全部年份</option>` + years.map(v => `<option${v===y?" selected":""}>${v}</option>`).join("");
+  $("tag").innerHTML = `<option value="">全部分類</option>` + Object.entries(tags).sort((a,b) => b[1]-a[1])
+    .map(([g,n]) => `<option value="${esc(g)}">${esc(g)}（${n}）</option>`).join("");
+  $("tag").hidden = !Object.keys(tags).length;
+}
+
+function run() {
+  const q = norm($("q").value.trim()), terms = q.split(/\s+/).filter(Boolean);
+  const y = $("year").value, g = $("tag").value, asc = $("sort").value === "asc";
+  view = ALL.filter(i => (!tab || i.s === tab) && (!y || i.d.startsWith(y)) && (!g || (i.g||[]).includes(g))
+    && terms.every(t => i._n.includes(t) || i._x.includes(t)));
+  if (asc) view = view.slice().reverse();
+  shown = 0; $("list").innerHTML = ""; $("count").textContent = `共 ${view.length} 條`;
+  more();
+}
+
+function snippet(i, terms) {
+  if (!i._x || !terms.length || terms.every(t => i._n.includes(t))) return "";
+  const p = i._x.indexOf(terms[0]); if (p < 0) return "";
+  const s = i.x.slice(Math.max(0, p - 40), p + 80);
+  return `<div class="snip">…${esc(s)}…</div>`;
+}
+
+function more() {
+  const terms = norm($("q").value.trim()).split(/\s+/).filter(Boolean);
+  const html = view.slice(shown, shown + PAGE).map(i => {
+    const ext = i.s !== "article";
+    const meta = [`<span class="k">${SRC[i.s][0]}</span>`];
+    if (i.dur) meta.push(dur(i.dur));
+    if (i.v) meta.push(i.v.toLocaleString() + " 次觀看");
+    if (i.n) meta.push(esc(i.n));
+    (i.g||[]).slice(0,3).forEach(t => meta.push(`<span>#${esc(t)}</span>`));
+    return `<li><div class="d">${i.d ? (i.a ? "≈" + i.d.slice(0,7) : i.d) : "—"}</div>
+      <div><div class="t"><a href="${esc(i.u)}"${ext ? ' target="_blank" rel="noopener"' : ""}>${esc(i.t)}</a></div>
+      <div class="m">${meta.join("")}</div>${snippet(i, terms)}</div></li>`;
+  }).join("");
+  $("list").insertAdjacentHTML("beforeend", html);
+  shown += PAGE; $("more").hidden = shown >= view.length;
+}
+
+let timer; $("q").oninput = () => { clearTimeout(timer); timer = setTimeout(run, 150); };
+["year","tag","sort"].forEach(id => $(id).onchange = run);
+$("more").onclick = more;
+</script>
+</body>
+</html>
