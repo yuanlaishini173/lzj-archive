@@ -8,6 +8,9 @@ on:
       resolve_limit:
         description: "本次最多校正多少个视频的精确日期"
         default: "250"
+      sources:
+        description: "要采集的来源（空格分隔）"
+        default: "books medium lzjscript youtube"
   push:
     branches: [main]
     paths: ["templates/**", "build.py"]
@@ -37,9 +40,10 @@ jobs:
         working-directory: collect
         env:
           YT_RESOLVE_LIMIT: ${{ github.event.inputs.resolve_limit || '250' }}
+          SOURCES: ${{ github.event.inputs.sources || 'books medium lzjscript youtube' }}
         run: |
           # 每个来源独立运行，一个失败不影响其他
-          for s in books medium lzjscript youtube; do
+          for s in $SOURCES; do
             echo "::group::$s"
             python $s.py || echo "::warning::$s collector failed"
             echo "::endgroup::"

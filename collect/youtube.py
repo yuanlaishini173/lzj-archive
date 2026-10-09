@@ -38,9 +38,12 @@ def flat(url, approx=False):
         args += ["--extractor-args", "youtubetab:approximate_date"]
     out = ytdlp(args + [url])
     try:
-        return [e for e in json.loads(out).get("entries") or [] if e]
+        data = json.loads(out)
     except ValueError:
         return []
+    if not isinstance(data, dict):  # e.g. channel has no such tab
+        return []
+    return [e for e in data.get("entries") or [] if e and e.get("id")]
 
 
 def ymd(ts):
@@ -75,6 +78,8 @@ def main():
                     it["date"] = ymd(e["timestamp"])
                     it["date_approx"] = True
 
+        save(STORE, store)
+
         # Exact dates for the newest uploads.
         try:
             xml = fetch("https://www.youtube.com/feeds/videos.xml?channel_id=" + cid)
@@ -102,6 +107,8 @@ def main():
                 for e in flat("https://www.youtube.com/playlist?list=" + p["id"]):
                     if e["id"] in store and ptitle not in store[e["id"]]["playlists"]:
                         store[e["id"]]["playlists"].append(ptitle)
+
+    save(STORE, store)
 
     # Resolve exact upload dates for a batch of approximate ones.
     todo = sorted((v for v in store.values() if v.get("date_approx")),
